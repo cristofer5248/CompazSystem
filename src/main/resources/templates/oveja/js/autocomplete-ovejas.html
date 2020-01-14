@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+	<script type="text/javascript" th:fragment="javascript">
+		$(document).ready(function() {
+
+
+let celula = $('#cargar_celulas')
+celula.empty();
+celula.append('<option selected="true" disabled>Selecciona</option>');
+celula.prop('selectedIndex',0);
+const url2 = "/celula/cargar_celulas";
+//populate dropdown list wujuu
+$.getJSON(url2,function(data){
+	$.each(data,function(key,entry){
+		celula.append($('<option></option>').attr('value',entry.id).text(entry.nombrec));
+	})
+});
+
+		
+	
+					
+let estado = $('#cargar_estado')
+estado.empty();
+estado.append('<option selected="true" disabled>Selecciona</option>');
+estado.prop('selectedIndex',0);
+const url3 = "/estado/cargar_estado";
+//populate dropdown list wujuu
+$.getJSON(url3,function(data){
+	$.each(data,function(key,entry){
+		estado.append($('<option></option>').attr('value',entry.id).text(entry.estado));
+	})
+});					
+			
+let genero = $('#cargar_genero')
+genero.empty();
+genero.append('<option selected="true" disabled>Selecciona</option>');
+genero.prop('selectedIndex',0);
+//populate dropdown list wujuu
+genero.append($('<option></option>').attr('value','1').text('Masculino'));
+genero.append($('<option></option>').attr('value','2').text('Femenino'));
+
+$(function(){
+  	$('.dates #fechabautizmo').datepicker({
+  		'format':'yyyy-mm-dd',
+  		'autoclose': true
+  	});
+  });
+$(function(){
+  	$('.dates #fechainicio').datepicker({
+  		'format':'yyyy-mm-dd',
+  		'autoclose': true
+  	});
+  });
+  
+		});
+	</script>
+</body>
+</html>

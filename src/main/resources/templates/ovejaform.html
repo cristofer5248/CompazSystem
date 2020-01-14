@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container py-4">
+
+		<div class="card bg-dark text-white">
+			<div class="card-header" th:text="${titulo}"></div>
+			<div class="card-body">
+
+				<div th:object="${miembro}" th:remove="tag">
+					<ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger"
+						role="alert">
+
+						<li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+
+					</ul>
+				</div>
+
+				<form th:action="@{/ovejasave}" th:object="${miembro}" method="post"
+					enctype="multipart/form-data">
+					<div class="form-group row">
+						<label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
+						<div class="col-sm-6">
+							<input type="text" th:field="*{nombre}" class="form-control"
+								th:errorclass="'form-control alert-danger'" /> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="apellido" class="col-sm-2 col-form-label">Apellido</label>
+						<div class="col-sm-6">
+							<input type="text" th:field="*{apellido}" class="form-control"
+								th:errorclass="'form-control alert-danger'" /> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></small>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="email" class="col-sm-2 col-form-label">Email</label>
+						<div class="col-sm-6">
+							<input type="text" th:field="*{email}" class="form-control"
+								th:errorclass="'form-control alert-danger'" /> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="createAt" class="col-sm-2 col-form-label">Fecha
+							de inicio</label>
+						<div class="col-sm-6 dates">
+							<input type="text" class="form-control" th:field="*{createAt}"
+								id="fechainicio" style="background-color: #aed6f1;"
+								autocomplete="off" placeholder="yyyy-mm-dd"
+								th:errorclass="'form-control alert-danger'" /> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('createAt')}" th:errors="*{createAt}"></small>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="bornDate" class="col-sm-2 col-form-label">Fecha
+							de bautizmo</label>
+						<div class="input-group dates col-sm-6">
+							<input type="text" class="form-control" th:field="*{bornDate}"
+								id="fechabautizmo" style="background-color: #aed6f1;"
+								autocomplete="off" placeholder="yyyy-mm-dd"
+								th:errorclass="'form-control alert-danger'" /> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('bornDate')}" th:errors="*{bornDate}"></small>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="celula" class="col-sm-2 col-form-label"
+							th:text="celula"></label>
+						<div class="col-sm-6">
+							<select th:field="*{celula.id}" id="cargar_celulas"
+								name="cargar_celulas" class="custom-select mr-sm-2">
+							</select>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="estado" class="col-sm-2 col-form-label"
+							th:text="Estadocivil"></label>
+						<div class="col-sm-6">
+							<select th:field="*{estadoc}" id="cargar_estado"
+								name="cargar_estado" class="custom-select mr-sm-2">
+							</select>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="genero" class="col-sm-2 col-form-label"
+							th:text="Genero"></label>
+						<div class="col-sm-6">
+							<select th:field="*{genero.id}" id="cargar_genero"
+								name="cargar_genero" class="custom-select mr-sm-2">
+							</select>
+						</div>
+					</div>
+
+
+					<div class="form-group row">
+						<label for="file" class="col-sm-2 col-form-label">Foto</label>
+						<div class="col-sm-6">
+							<input type="file" name="file" class="form-control" />
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<div class="col-sm-6">
+							<input type="submit" th:value="${titulo}"
+								class="btn btn-secondary" />
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<footer th:replace="layout/layout :: footer"></footer>
+	<script th:replace="oveja/js/autocomplete-ovejas :: javascript"></script>
+</body>
+</html>
